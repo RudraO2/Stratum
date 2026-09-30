@@ -1,0 +1,21 @@
+{
+  "name": "stratum",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Stratum — evidence-first document intelligence for CMPDI/CIL (SIH 2026). A DeepSeek Harness plugin (plugins/stratum-ui) plus a Python backend (backend/).",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "setup": "node scripts/start.mjs --setup-only",
+    "kiosk": "node scripts/kiosk.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "test": "cd plugins/stratum-ui && node --test",
+    "licence-audit": "node scripts/licence-audit.mjs",
+    "record-demo": "node scripts/record-demo.mjs",
+    "test:backend": "cd backend && python -m pytest tests -q"
+  }
+}

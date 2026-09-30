@@ -1,0 +1,10 @@
+# Binary files must never go through line-ending conversion (the SAMPLE corpus is checked in).
+*.pdf binary
+*.xlsx binary
+*.docx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.mp4 binary
