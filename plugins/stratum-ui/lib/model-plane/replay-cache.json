@@ -1,0 +1,20 @@
+[
+	{
+		"match": "hello",
+		"blocks": [
+			{
+				"type": "text",
+				"text": "Hello — this is Stratum running in replay mode. This response is authored, not produced by a live model. Questions, parliamentary replies, reports and topics still run against the real library; only plain conversation is replayed."
+			}
+		]
+	},
+	{
+		"match": "what can you do",
+		"blocks": [
+			{
+				"type": "text",
+				"text": "Stratum reads coal documents into verified facts and answers from them. Ask a question about production, offtake or targets and every figure comes back with its source cell; paste a Lok Sabha or Rajya Sabha question and it drafts the reply with annexures and flags any figure that differs from what was told to Parliament before; ask for a report and it writes a Word document; ask for topics and it shows what the library is about. This response is authored for replay mode."
+			}
+		]
+	}
+]
