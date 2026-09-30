@@ -1,0 +1,32 @@
+[project]
+name = "stratum"
+version = "0.1.0"
+description = "Stratum backend: ingestion, fact extraction, hybrid search, ask, PQ replies, reports, topics and metrics for CMPDI/CIL documents"
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "python-multipart>=0.0.9",
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "openpyxl>=3.1",
+    "pypdfium2>=4.30",
+    "pillow>=10.0",
+    "docling>=2.40",
+    "sentence-transformers>=3.0",
+    "scikit-learn>=1.5",
+    "bertopic>=0.16",
+    "wordcloud>=1.9",
+    "matplotlib>=3.8",
+    "python-docx>=1.1",
+    "reportlab>=4.0",
+]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = ["pytest>=8"]
