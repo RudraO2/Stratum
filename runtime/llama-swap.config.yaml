@@ -1,0 +1,49 @@
+# Stratum's inference runtime model table (llama-swap).
+#
+# Forked from Faraday's. Stratum runs its OWN llama-swap on 127.0.0.1:8090 with
+# this file (written to <runtime root>/llama-swap/stratum.yaml by
+# scripts/fetch-runtime.ps1), so Faraday's config on :8080 is never touched.
+# Both products share the same llama.cpp build and GGUF files on disk.
+#
+# Flags carried over from Faraday's measurements on the GTX 1650 (4 GB):
+#   --device     pinned to the discrete card; the index is NOT portable between
+#                laptops, so fetch-runtime.ps1 substitutes it from --list-devices.
+#   --parallel 1 one KV-cache slot; the default of 4 would quadruple memory.
+#   -ngl / -c    explicit, so llama.cpp's --fit does not silently rewrite them.
+#
+# One model is resident at a time (llama-swap's default). The backend asks for
+# `st-text` for mapping, intent, composition and reports, and `st-vision` only
+# at ingest for figures and unreadable scan pages, so swaps are batched.
+
+macros:
+  llama-server: >
+    __RUNTIME_ROOT__/llama.cpp/llama-server.exe
+    --port ${PORT}
+    --host 127.0.0.1
+    --device __DISCRETE_GPU__
+    --parallel 1
+    --n-gpu-layers 99
+    --ctx-size 8192
+    --jinja
+
+models:
+  # Qwen/Qwen3-4B, Apache-2.0, Q4_K_M. Text: table mapping, query intent,
+  # answer composition, PQ parts, report narrative, topic labels.
+  # `--reasoning off`: a <think> block would spend the JSON budget.
+  "st-text":
+    name: "Stratum text"
+    cmd: |
+      ${llama-server}
+      --reasoning off
+      --model __RUNTIME_ROOT__/models/Qwen3-4B-Q4_K_M.gguf
+    ttl: 600
+
+  # Qwen/Qwen3-VL-2B-Instruct, Apache-2.0, Q4_K_M + Q8_0 projector.
+  # Vision: describes figures/maps and transcribes pages OCR could not read.
+  "st-vision":
+    name: "Stratum vision"
+    cmd: |
+      ${llama-server}
+      --model __RUNTIME_ROOT__/models/Qwen3VL-2B-Instruct-Q4_K_M.gguf
+      --mmproj __RUNTIME_ROOT__/models/mmproj-Qwen3VL-2B-Instruct-Q8_0.gguf
+    ttl: 300

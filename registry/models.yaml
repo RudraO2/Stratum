@@ -1,0 +1,51 @@
+# The fleet: every model Stratum knows about, with the licence it was verified under.
+#
+# The UI model list, the router and the licence gate all read this file. The
+# gate (lib/registry/loader.js) refuses any member whose licence is outside the
+# permissive allow-list, at runtime and by name.
+#
+# `runtime_id` is the key under `models:` in runtime/llama-swap.config.yaml.
+#
+# Shape note: lib/registry/fleet.js parses a YAML subset. Values are quoted
+# strings, inline [a, b] arrays or bare scalars; no block scalars.
+
+fleet:
+  # Answers every Stratum task type: ask, PQ reply, report, topics, chat.
+  - name: Qwen/Qwen3-4B
+    role: text
+    runtime_id: st-text
+    licence: Apache-2.0
+    licence_source: LICENSE file at the pinned revision of Qwen/Qwen3-4B-GGUF
+    revision: bc640142c66e1fdd12af0bd68f40445458f3869b
+    size: 4B
+    quantisation: Q4_K_M
+    context: 32768
+    runtime_context: 8192
+    modalities: [text]
+    capabilities: [document-understanding, general-reasoning, instruction-following, structured-output, multilingual]
+
+  # Reads figures, maps and badly scanned pages at ingest; answers a turn with an attached image.
+  - name: Qwen/Qwen3-VL-2B-Instruct
+    role: vision
+    runtime_id: st-vision
+    licence: Apache-2.0
+    licence_source: README.md YAML frontmatter at the pinned revision (no LICENSE file in repo)
+    revision: 89644892e4d85e24eaac8bacfd4f463576704203
+    size: 2B
+    quantisation: Q4_K_M
+    context: 262144
+    runtime_context: 8192
+    modalities: [text, image]
+    capabilities: [document-understanding, visual-grounding, general-reasoning, instruction-following]
+
+  # Declared so the licence gate visibly refuses it: same publisher, non-permissive licence.
+  - name: Qwen/Qwen2.5-3B-Instruct
+    role: none
+    licence: Qwen Research Licence
+    licence_source: LICENSE file at the pinned revision
+    revision: aa8e72537993ba99e69dfaafa59ed015b17504d1
+    size: 3B
+    context: 32768
+    modalities: [text]
+    capabilities: [general-reasoning]
+    note: "declared so the loader can refuse it — the Qwen Research Licence is outside the allow-list"
