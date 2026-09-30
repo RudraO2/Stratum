@@ -1,0 +1,98 @@
+# Stratum master data: canonical entities, metrics, units and source precedence.
+# Aliases are matched case-insensitively on normalised text (punctuation → space).
+
+entities:
+  # code: canonical code stored on facts; type drives grouping ("subsidiary-wise").
+  - {code: ECL,  type: subsidiary, name: Eastern Coalfields Limited,        parent: CIL, aliases: [ecl, eastern coalfields, eastern coalfields ltd, eastern coalfields limited, ईसीएल]}
+  - {code: BCCL, type: subsidiary, name: Bharat Coking Coal Limited,        parent: CIL, aliases: [bccl, bharat coking coal, bharat coking coal ltd, bharat coking coal limited, बीसीसीएल]}
+  - {code: CCL,  type: subsidiary, name: Central Coalfields Limited,        parent: CIL, aliases: [ccl, central coalfields, central coalfields ltd, central coalfields limited, सीसीएल]}
+  - {code: NCL,  type: subsidiary, name: Northern Coalfields Limited,       parent: CIL, aliases: [ncl, northern coalfields, northern coalfields ltd, northern coalfields limited, एनसीएल]}
+  - {code: WCL,  type: subsidiary, name: Western Coalfields Limited,        parent: CIL, aliases: [wcl, western coalfields, western coalfields ltd, western coalfields limited, डब्ल्यूसीएल]}
+  - {code: SECL, type: subsidiary, name: South Eastern Coalfields Limited,  parent: CIL, aliases: [secl, south eastern coalfields, south eastern coalfields ltd, south eastern coalfields limited, एसईसीएल]}
+  - {code: MCL,  type: subsidiary, name: Mahanadi Coalfields Limited,       parent: CIL, aliases: [mcl, mahanadi coalfields, mahanadi coalfields ltd, mahanadi coalfields limited, एमसीएल]}
+  - {code: NEC,  type: subsidiary, name: North Eastern Coalfields,          parent: CIL, aliases: [nec, north eastern coalfields, n e c]}
+  - {code: CMPDI, type: subsidiary, name: Central Mine Planning & Design Institute, parent: CIL, aliases: [cmpdi, cmpdil, central mine planning and design institute, central mine planning design institute]}
+  - {code: CIL,  type: company, name: Coal India Limited, aliases: [cil, coal india, coal india ltd, coal india limited, total cil, cil total, cil total coal, coal india total, कोल इंडिया, सीआईएल]}
+  - {code: SCCL, type: company, name: Singareni Collieries Company Limited, aliases: [sccl, singareni, singareni collieries, singareni collieries company limited, s c c l]}
+  - {code: CAPTIVE, type: company, name: Captive and Others, aliases: [captive, captive others, captive and others, captive commercial and others, captive commercial others, others, captive and commercial, captive commercial]}
+  - {code: ALL_INDIA, type: country, name: All India, aliases: [all india, india, total, grand total, all india total, total all india]}
+  # States (production is also reported state-wise)
+  - {code: "STATE:JH", type: state, name: Jharkhand,      aliases: [jharkhand]}
+  - {code: "STATE:CG", type: state, name: Chhattisgarh,   aliases: [chhattisgarh, chattisgarh]}
+  - {code: "STATE:OD", type: state, name: Odisha,         aliases: [odisha, orissa]}
+  - {code: "STATE:MP", type: state, name: Madhya Pradesh, aliases: [madhya pradesh, m p]}
+  - {code: "STATE:MH", type: state, name: Maharashtra,    aliases: [maharashtra]}
+  - {code: "STATE:WB", type: state, name: West Bengal,    aliases: [west bengal, w bengal]}
+  - {code: "STATE:TG", type: state, name: Telangana,      aliases: [telangana]}
+  - {code: "STATE:UP", type: state, name: Uttar Pradesh,  aliases: [uttar pradesh, u p]}
+  - {code: "STATE:AS", type: state, name: Assam,          aliases: [assam]}
+  - {code: "STATE:ML", type: state, name: Meghalaya,      aliases: [meghalaya]}
+  - {code: "STATE:AP", type: state, name: Andhra Pradesh, aliases: [andhra pradesh]}
+  - {code: "STATE:BR", type: state, name: Bihar,          aliases: [bihar]}
+  - {code: "STATE:AR", type: state, name: Arunachal Pradesh, aliases: [arunachal pradesh]}
+  - {code: "STATE:JK", type: state, name: Jammu & Kashmir, aliases: [jammu and kashmir, jammu kashmir, j k]}
+
+coalfields:
+  - {name: Raniganj,        subsidiary: ECL,  state: "STATE:WB"}
+  - {name: Rajmahal,        subsidiary: ECL,  state: "STATE:JH"}
+  - {name: Jharia,          subsidiary: BCCL, state: "STATE:JH"}
+  - {name: East Bokaro,     subsidiary: CCL,  state: "STATE:JH"}
+  - {name: West Bokaro,     subsidiary: CCL,  state: "STATE:JH"}
+  - {name: North Karanpura, subsidiary: CCL,  state: "STATE:JH"}
+  - {name: South Karanpura, subsidiary: CCL,  state: "STATE:JH"}
+  - {name: Ramgarh,         subsidiary: CCL,  state: "STATE:JH"}
+  - {name: Singrauli,       subsidiary: NCL,  state: "STATE:MP"}
+  - {name: Wardha Valley,   subsidiary: WCL,  state: "STATE:MH"}
+  - {name: Pench-Kanhan,    subsidiary: WCL,  state: "STATE:MP"}
+  - {name: Korba,           subsidiary: SECL, state: "STATE:CG"}
+  - {name: Mand-Raigarh,    subsidiary: SECL, state: "STATE:CG"}
+  - {name: Sohagpur,        subsidiary: SECL, state: "STATE:MP"}
+  - {name: Hasdeo-Arand,    subsidiary: SECL, state: "STATE:CG"}
+  - {name: Talcher,         subsidiary: MCL,  state: "STATE:OD"}
+  - {name: Ib Valley,       subsidiary: MCL,  state: "STATE:OD"}
+  - {name: Makum,           subsidiary: NEC,  state: "STATE:AS"}
+  - {name: Godavari Valley, subsidiary: SCCL, state: "STATE:TG"}
+
+metrics:
+  # key: canonical metric; unit: canonical unit; range: plausible [min,max] per entity-year in the canonical unit
+  - {key: coal_production,   unit: million_tonnes,       label: Coal production,           aliases: [coal production, production, raw coal production, output, coal output, produced], range: [0, 1300]}
+  - {key: coal_offtake,      unit: million_tonnes,       label: Coal offtake / despatch,   aliases: [offtake, off take, off-take, despatch, dispatch, coal despatch, coal dispatch, coal offtake, raw coal offtake, supply], range: [0, 1300]}
+  - {key: obr,               unit: million_cubic_metres, label: Overburden removal,        aliases: [overburden removal, over burden removal, obr, ob removal, overburden], range: [0, 3000]}
+  - {key: production_target, unit: million_tonnes,       label: Production target,         aliases: [production target, target, target production, aap target, annual target], range: [0, 1600]}
+  - {key: offtake_target,    unit: million_tonnes,       label: Offtake target,            aliases: [offtake target, despatch target, dispatch target], range: [0, 1600]}
+  - {key: capacity,          unit: million_tonnes_per_annum, label: Capacity,              aliases: [capacity, rated capacity, sanctioned capacity, production capacity], range: [0, 2000]}
+  - {key: reserves,          unit: million_tonnes,       label: Coal reserves,             aliases: [reserves, extractable reserves, mineable reserves, geological reserves], range: [0, 400000]}
+  - {key: resources,         unit: million_tonnes,       label: Coal resources,            aliases: [resources, coal resources, geological resources, total resources], range: [0, 500000]}
+  - {key: manpower,          unit: persons,              label: Manpower,                  aliases: [manpower, employees, man power, employee strength], range: [0, 800000]}
+  - {key: oms,               unit: tonnes_per_manshift,  label: Output per man-shift (OMS), aliases: [oms, output per man shift, output per manshift], range: [0, 100]}
+  - {key: exploration_drilling, unit: metres,            label: Exploratory drilling,      aliases: [drilling, exploratory drilling, exploration drilling, meterage], range: [0, 5000000]}
+  - {key: growth_pct,        unit: percent,              label: Growth,                    aliases: [growth, growth percent, growth pct, "% growth", growth over last year, "% change", change], range: [-100, 1000]}
+  - {key: achievement_pct,   unit: percent,              label: Achievement,               aliases: ["% achievement", achievement, achievement pct, "% of target"], range: [0, 300]}
+
+units:
+  # alias → [canonical unit, factor to multiply by]
+  million_tonnes:       [[mt, "m t", mts, million tonnes, million tonne, million ton, million tons, mill tonnes, "in mt", "in million tonnes", "mill. tonnes", "mn tonnes", "mn t"], 1.0]
+  lakh_tonnes:          [[lt, lakh tonnes, lakh tonne, lakh ton, "in lakh tonnes", lakh t], 0.1, million_tonnes]
+  thousand_tonnes:      [["'000 tonnes", "000 tonnes", thousand tonnes, "th tonnes", "'000 t", kt], 0.001, million_tonnes]
+  tonnes:               [[tonnes, tonne, tons, "t"], 0.000001, million_tonnes]
+  million_cubic_metres: [[mcum, m cum, million cubic metres, million cubic meters, mm3, "mcu m", "m. cum", million cum, "m cu m", "m.cu.m", "mcu.m"], 1.0]
+  lakh_cubic_metres:    [[lcum, lakh cubic metres, lakh cum], 0.1, million_cubic_metres]
+  million_tonnes_per_annum: [[mtpa, million tonnes per annum, "mty", "mt/year"], 1.0]
+  percent:              [["%", percent, per cent, percentage], 1.0]
+  persons:              [[persons, nos, numbers, number, employees], 1.0]
+  tonnes_per_manshift:  [["t/ms", tonnes per manshift, "te/manshift"], 1.0]
+  metres:               [[metres, meters, "m"], 1.0]
+
+# Which document kind wins when two sources disagree on the same fact.
+source_precedence:
+  human_review: 100
+  coal_directory: 90
+  annual_report: 80
+  provisional_stats: 70
+  spreadsheet: 60
+  pq_reply: 55
+  geological_report: 55
+  document: 50
+  press_release: 40
+
+stopwords_domain: [coal, india, limited, ltd, ministry, government, total, year, per, cent, lakh, million, tonnes, tonne, mt, fy, also, shall, will, may, said, state, states, company, subsidiary, subsidiaries, page, table, annexure, annex, sl, "no", nos, s, reply, question, answer, minister, lok, sabha, rajya, unstarred, starred, shri, smt, dated, hon, ble, part, figures, provisional, respectively, etc, i, ii, iii, iv, v, sample, excerpt, synthetic, demonstration, approximate, published]
