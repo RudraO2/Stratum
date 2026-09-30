@@ -1,0 +1,10 @@
+# Stratum — the harness settings this project owns. `scripts/start.mjs` MERGES
+# these keys into $DSH_HOME/settings.yaml; keys it does not own (the operator's
+# theme preference) are left alone.
+
+# Marks the harness's developer-preview notice as seen, so the first screen is Stratum.
+ui-onboarding:
+  welcomeNoticeVersion: 2026-08-13.1
+
+agent-presets:
+  default: stratum

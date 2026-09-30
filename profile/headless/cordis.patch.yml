@@ -1,0 +1,37 @@
+# Stratum's patch layer for the headless profile. No web server here, but the
+# plugin's host half (the seal, the model plane, the tools) still mounts.
+
+- insert:
+    - id: st-base
+      name: '@stratum/dsh-client-ui-base'
+      config:
+        modelPlane:
+          provider: local
+        backend:
+          endpoint: http://127.0.0.1:8642
+
+- id: llm-deepseek
+  disabled: true
+
+- id: llm-pi-ai
+  disabled: true
+
+# headless mounts tool-web directly; disabling only `web` would hang the boot.
+- id: tool-web
+  disabled: true
+
+- id: web-search-deepseek
+  disabled: true
+
+- id: web
+  disabled: true
+
+- id: agent-default-model
+  config:
+    provider: local
+    model: Qwen/Qwen3-4B
+
+# The harness loads CLAUDE.md-style files found above the workspace into the transcript. Stratum's
+# workspace is its own folder, and this keeps it that way if someone points a workspace at a checkout.
+- id: agent-instructions
+  disabled: true

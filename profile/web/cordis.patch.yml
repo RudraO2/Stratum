@@ -1,0 +1,79 @@
+# Stratum's patch layer for the web profile (applied after every bundle layer).
+# THIS COPY is the source of truth; `npm start` copies it into
+# $DSH_HOME/profiles/web/cordis.patch.yml (DSH_HOME defaults to ~/.dsh-stratum).
+# Forked from Faraday (SIH26117); the reasons behind each row are recorded in
+# docs/inherited/profile-install.md.
+
+- insert:
+    - id: st-base
+      name: '@stratum/dsh-client-ui-base'
+      config:
+        modelPlane:
+          # `local` = llama-swap on 127.0.0.1:8090. Set to `replay` for a disclosed,
+          # hand-authored walkthrough on a machine with no GPU.
+          provider: local
+        backend:
+          # The Stratum Python backend (ingest, facts, search, ask, PQ, reports, topics).
+          endpoint: http://127.0.0.1:8642
+
+# No network-capable tool or search provider.
+- id: web-search-deepseek
+  disabled: true
+
+- id: web
+  disabled: true
+
+# No cloud model provider.
+- id: llm-deepseek
+  disabled: true
+
+- id: llm-pi-ai
+  disabled: true
+
+# The workbench introduces itself as Stratum, and the harness identity / runtime
+# context injections stay out of the transcript.
+- id: system-prompt
+  config:
+    includeHarnessIdentity: false
+    includeRuntimeContext: false
+    persona: >-
+      You are Stratum, an evidence-first document intelligence workbench for CMPDI and
+      Coal India, running entirely offline on the {{model}} model. Your working directory
+      is {{cwd}}. Never state a figure that did not come from a Stratum tool result; when
+      evidence is missing say "Insufficient verified evidence available."
+
+# Our hero indicator owns conversation.hero.agentPreset (single slot); the shipped
+# seat would race it at boot.
+- id: ui-agent-preset
+  disabled: true
+
+# Our mark owns the brand slots; the shipped whale would win them otherwise.
+- id: ui-brand-official
+  disabled: true
+
+# Default seat for a new session; the router picks per turn from then on.
+- id: agent-default-model
+  config:
+    provider: local
+    model: Qwen/Qwen3-4B
+
+# No skill surface (the `skill` registry row itself must stay mounted — disabling
+# it breaks New Session).
+- id: ui-skill
+  disabled: true
+
+# Session titles come from the first prompt, not from a model.
+- id: session-title-llm
+  disabled: true
+
+# The routing chip replaces the stock model picker.
+- id: ui-model-selection
+  disabled: true
+
+# `attachment-local` must NOT be disabled: dsh-host-apiproxy requires the
+# `attachments` service and the workbench will not boot without it.
+
+# The harness loads CLAUDE.md-style files found above the workspace into the transcript. Stratum's
+# workspace is its own folder, and this keeps it that way if someone points a workspace at a checkout.
+- id: agent-instructions
+  disabled: true
