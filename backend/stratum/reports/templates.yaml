@@ -1,0 +1,42 @@
+# Report templates. A report is a list of sections; each section pulls verified
+# facts through the same semantic layer Ask uses, so every figure is cited.
+#
+# periods:  latest | latest-N..latest (e.g. latest-1..latest) | last:N
+# entities: subsidiaries (CIL's producing subsidiaries + CIL total) | a list of codes | "{entity}" (a parameter)
+
+- id: subsidiary_annual_production
+  title: "Subsidiary-wise Coal Production and Offtake — {period}"
+  description: CIL subsidiary-wise production and offtake for the latest year against the previous year.
+  params: {period: latest}
+  sections:
+    - {type: heading, text: "1. Coal production"}
+    - {type: table, metric: coal_production, entities: subsidiaries, periods: "latest-1..latest"}
+    - {type: chart, metric: coal_production, entities: subsidiaries_only, periods: "latest-1..latest", kind: bar}
+    - {type: narrative, about: coal_production}
+    - {type: heading, text: "2. Coal offtake"}
+    - {type: table, metric: coal_offtake, entities: subsidiaries, periods: "latest-1..latest"}
+    - {type: narrative, about: coal_offtake}
+    - {type: heading, text: "3. Context from documents"}
+    - {type: evidence, query: "reasons for change in coal production and offtake of Coal India subsidiaries"}
+
+- id: target_vs_achievement
+  title: "Production Target vs Achievement — {period}"
+  description: Subsidiary-wise annual production target, actual production and % achievement.
+  params: {period: latest}
+  sections:
+    - {type: heading, text: "1. Target vs achievement"}
+    - {type: target_table, target: production_target, actual: coal_production, entities: subsidiaries, period: latest}
+    - {type: chart, metric: [production_target, coal_production], entities: subsidiaries_only, periods: latest, kind: grouped_bar}
+    - {type: narrative, about: target_vs_achievement}
+
+- id: multi_year_trend
+  title: "{metric_label} Trend — {entity_name}, last {years} years"
+  description: Multi-year trend for one entity and metric, with documentary context.
+  params: {entity: CIL, metric: coal_production, years: 5}
+  sections:
+    - {type: heading, text: "1. Trend"}
+    - {type: table, metric: "{metric}", entities: ["{entity}"], periods: "last:{years}"}
+    - {type: chart, metric: "{metric}", entities: ["{entity}"], periods: "last:{years}", kind: line}
+    - {type: narrative, about: trend}
+    - {type: heading, text: "2. Explanatory evidence"}
+    - {type: evidence, query: "{entity_name} {metric_label} growth decline reasons"}
