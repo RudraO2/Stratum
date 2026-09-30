@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The Stratum mark, dark ink - for a light background. Logo-dark.svg is the same artwork in white; README.md picks between them with <picture>. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 44" width="96" height="88" role="img" aria-label="Stratum">
+	<title>Stratum</title>
+	<path d="M24 4 L44 13 L24 22 L4 13 Z" fill="#0b1220"/>
+	<path d="M4 20.5 L24 29.5 L44 20.5 M4 28.5 L24 37.5 L44 28.5" fill="none" stroke="#0b1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
